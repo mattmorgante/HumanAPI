@@ -1,0 +1,34 @@
+<h1>New User</h1>
+
+<%= render 'form' %>
+
+<script src='https://connect.humanapi.co/connect.js'></script>
+
+<img id='connect-health-data-btn' src='https://connect.humanapi.co/assets/button/blue.png'/>
+
+<script>
+var connectBtn = document.getElementById('connect-health-data-btn');
+connectBtn.addEventListener('click', function(e) {
+  var opts = {
+    // grab this from the app settings page
+    clientId: '9bcdc664320c12dce23e3207d93661e18eb0c021',
+    // can be email or any other internal id of the user in your system
+    clientUserId: '241ceeb24411fc157e3fb8c36076f20639ee67d5',
+    finish: function(err, sessionTokenObject) {
+      // When user finishes health data connection to your app
+      // `finish` function will be called.
+      // `sessionTokenObject` object will have several fields in it.
+      // You need to pass this `sessionTokenObject` object to your server
+      // add `CLIENT_SECRET` to it and send `POST` request to the `https://user.humanapi.co/v1/connect/tokens` endpoint.
+      // In return you will get `accessToken` for that user that can be used to query Human API.
+    },
+    close: function() {
+      // do something here when user just closed popup
+      // `close` callback function is optional
+    }
+  }
+  HumanConnect.open(opts);
+});
+</script>
+
+<%= link_to 'Back', users_path %>
